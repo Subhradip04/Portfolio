@@ -1,37 +1,90 @@
 .experience-cards-div {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-  gap: 1rem 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: $space8;
+  margin-top: $space8;
 }
 
 .experience-heading {
-  font-size: 56px;
-  font-weight: 400;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: $space4;
+  background: $primaryGradient;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+}
+
+.experience-heading::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: $primaryGradient;
+  border-radius: $radiusFull;
 }
 
 .experience-container {
   display: flex;
+  flex-direction: column;
   width: 90%;
-  padding: 20px 10px;
-  margin: 0px auto;
-  margin-top: 2rem;
+  padding: $space16 $space2;
+  margin: 0 auto;
+  position: relative;
 }
 
-.experience-container > * {
-  flex: 1;
+.experience-container::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: -5%;
+  width: 200px;
+  height: 200px;
+  background: $heroGradient;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.3;
+  z-index: -1;
 }
 
-/* Media Query */
+/* Dark mode styles */
+.dark-mode .experience-heading {
+  background: linear-gradient(135deg, $titleColorDark 0%, $primaryLight 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
+/* Responsive design */
 @media (max-width: 1380px) {
-  .experience-heading {
-    font-size: 40px;
+  .experience-cards-div {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: $space6;
+  }
+  
+  .experience-container {
+    padding: $space12 $space2;
   }
 }
 
 @media (max-width: 768px) {
-  .experience-heading {
-    font-size: 30px;
-    text-align: center;
+  .experience-cards-div {
+    grid-template-columns: 1fr;
+    gap: $space6;
+  }
+  
+  .experience-container {
+    padding: $space8 $space2;
+  }
+}
+
+@media (max-width: 480px) {
+  .experience-cards-div {
+    gap: $space4;
   }
 }

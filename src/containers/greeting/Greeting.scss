@@ -2,72 +2,142 @@
 
 .main {
   width: 90%;
-  padding: 20px 10px;
+  padding: $space5 $space2;
   margin: 0px auto;
-  margin-top: 4rem;
+  margin-top: $space16;
 }
+
 .greet-main {
   width: 90%;
-  padding: 20px 10px;
+  padding: $space5 $space2;
   margin: 0px auto;
-  margin-top: 2rem;
+  margin-top: $space8;
+  position: relative;
+}
+
+.greet-main::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  left: -50px;
+  width: 200px;
+  height: 200px;
+  background: $heroGradient;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.3;
+  z-index: -1;
 }
 
 .greeting-main {
   display: flex;
+  align-items: center;
+  gap: $space12;
+  min-height: 70vh;
+}
+
+.greeting-main > * {
+  flex: 1;
+}
+
+.greeting-text-div {
+  position: relative;
+  z-index: 2;
 }
 
 .subTitle {
   color: $subTitle !important;
 }
 
-.greeting-main {
-  display: flex;
-}
-
-.greeting-main > * {
-  flex: 1;
-  margin-bottom: 30px;
-}
-
 .empty-div {
-  margin-bottom: 40px;
+  margin-bottom: $space10;
 }
 
 .button-greeting-div {
   display: flex;
-  margin-top: 40px;
+  gap: $space4;
+  margin-top: $space10;
+  flex-wrap: wrap;
 }
+
 .download-link-button {
   text-decoration: none;
 }
 
 .greeting-text {
-  font-size: 70px;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
   line-height: 1.1;
-  color: $textColor !important;
+  color: $titleColor !important;
+  font-weight: 800;
+  margin-bottom: $space6;
+  background: linear-gradient(135deg, $titleColor 0%, $primaryColor 50%, $secondaryColor 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+}
+
+.greeting-text::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100px;
+  height: 4px;
+  background: $primaryGradient;
+  border-radius: $radiusFull;
 }
 
 .greeting-text-p {
-  font-size: 30px;
-  line-height: 40px;
+  font-size: clamp(1.125rem, 2vw, 1.5rem);
+  line-height: 1.6;
+  color: $textColor;
+  margin-bottom: $space8;
+  max-width: 600px;
+}
+
+.greeting-image-div {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.greeting-image-div::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120%;
+  height: 120%;
+  background: $primaryGradient;
+  border-radius: 50%;
+  filter: blur(40px);
+  opacity: 0.1;
+  z-index: -1;
 }
 
 .greeting-image-div > img {
   max-width: 100%;
   height: auto;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.1));
+  transition: transform $transitionSlow;
+}
+
+.greeting-image-div > img:hover {
+  transform: scale(1.05) rotate(2deg);
 }
 
 .wave-emoji {
-  animation-duration: 1.8s;
-  animation-iteration-count: infinite;
-  animation-name: wave;
+  animation: wave 2s ease-in-out infinite;
   display: inline-block;
   transform-origin: 70% 70%;
+  font-size: 0.9em;
 }
 
 @keyframes wave {
-  0% {
+  0%, 50%, 100% {
     transform: rotate(0deg);
   }
   10% {
@@ -82,46 +152,81 @@
   40% {
     transform: rotate(9deg);
   }
-  50% {
-    transform: rotate(0deg);
+}
+
+/* Floating animation for background elements */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
   }
-  100% {
-    transform: rotate(0deg);
+  50% {
+    transform: translateY(-20px);
   }
 }
 
-/* Media Query */
+.greeting-image-div {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Dark mode styles */
+.dark-mode .greeting-text {
+  color: $titleColorDark !important;
+  background: linear-gradient(135deg, $titleColorDark 0%, $primaryLight 50%, $secondaryColor 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dark-mode .greeting-text-p {
+  color: $subTitleDark;
+}
+
+/* Responsive design */
 @media (max-width: 1380px) {
-  .greeting-text {
-    font-size: 50px;
-  }
-  .greeting-text-p {
-    font-size: 20px;
+  .greeting-main {
+    gap: $space8;
   }
 }
+
 @media (max-width: 768px) {
-  .button-greeting-div {
-    justify-content: space-around;
+  .greet-main {
+    margin-top: $space6;
   }
-  .greeting-text {
-    font-size: 30px;
-    text-align: center;
-  }
-  .greeting-text-p {
-    font-size: 16px;
-    line-height: normal;
-    text-align: center;
-  }
+  
   .greeting-main {
-    display: block;
+    flex-direction: column;
+    text-align: center;
+    gap: $space8;
+    min-height: auto;
   }
+  
+  .greeting-text::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .button-greeting-div {
+    justify-content: center;
+    gap: $space3;
+  }
+  
   .greeting-image-div {
-    height: 256px;
+    order: -1;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .button-greeting-div {
+    flex-direction: column;
+    align-items: center;
   }
 }
 
 @media (max-width: 320px) {
-  .main {
-    width: auto;
+  .main, .greet-main {
+    width: 95%;
+    padding: $space3 $space2;
   }
 }

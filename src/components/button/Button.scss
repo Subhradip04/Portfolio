@@ -1,47 +1,155 @@
 @import "../../_globalColor";
 
 .main-button {
-  background-color: $buttonColor;
-  border: solid 1px $buttonColor;
-  color: $textColorDark;
-  font-weight: 700;
+  background: $primaryGradient;
+  border: none;
+  color: white;
+  font-weight: 600;
   width: max-content;
-  padding: 13px 22px;
-  margin-right: 50px;
+  padding: $space4 $space8;
   text-transform: uppercase;
-  border-radius: 6px;
+  border-radius: $radiusLg;
   text-align: center;
   text-decoration: none;
-  display: block;
-  margin-top: 20px;
-  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: $space5;
+  font-size: 0.875rem;
+  letter-spacing: 0.5px;
   cursor: pointer;
-  transition: all 0.3s ease-in-out 0s;
+  transition: all $transitionNormal;
+  position: relative;
+  overflow: hidden;
+  box-shadow: $modernShadow;
+  min-width: 160px;
 }
+
+.main-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, $primaryHover 0%, $secondaryHover 100%);
+  transition: left $transitionNormal;
+  z-index: -1;
+}
+
+.main-button:hover::before {
+  left: 0;
+}
+
 .main-button:hover {
-  background-color: $darkBoxShadow2;
-  color: $buttonColor;
-  transition: all 0.3s ease 0s;
   transform: translateY(-3px);
+  box-shadow: $modernShadowLg;
+  color: white;
 }
+
+.main-button:active {
+  transform: translateY(-1px);
+  box-shadow: $modernShadow;
+}
+
 .project-button {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: $space6;
 }
+
 .project-button > .main-button {
   margin-right: 0 !important;
 }
-/* Media Query */
+
+/* Secondary button variant */
+.main-button.secondary {
+  background: transparent;
+  color: $primaryColor;
+  border: 2px solid $primaryColor;
+}
+
+.main-button.secondary::before {
+  background: $primaryGradient;
+}
+
+.main-button.secondary:hover {
+  color: white;
+  border-color: transparent;
+}
+
+/* Outline button variant */
+.main-button.outline {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  color: $primaryColor;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+}
+
+.main-button.outline:hover {
+  background: $primaryColor;
+  color: white;
+  border-color: $primaryColor;
+}
+
+/* Dark mode styles */
+.dark-mode .main-button.secondary {
+  color: $primaryLight;
+  border-color: $primaryLight;
+}
+
+.dark-mode .main-button.outline {
+  color: $primaryLight;
+  background: rgba(0, 0, 0, 0.2);
+  border-color: rgba(163, 180, 252, 0.3);
+}
+
+/* Loading state */
+.main-button.loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.main-button.loading::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-left: $space2;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive design */
 @media (max-width: 768px) {
   .main-button {
-    font-size: 0.938rem;
-    padding: 12px 18px;
-    margin-right: 0px;
+    font-size: 0.8rem;
+    padding: $space3 $space6;
+    min-width: 140px;
   }
 }
+
+@media (max-width: 480px) {
+  .main-button {
+    width: 100%;
+    max-width: 280px;
+  }
+  
+  .project-button {
+    margin-top: $space4;
+  }
+}
+
 @media (max-width: 320px) {
   .main-button {
     font-size: 0.75rem;
+    padding: $space3 $space4;
   }
 }
