@@ -1,30 +1,29 @@
 @import "../../_globalColor";
 
-/*React-headroom*/
+/* Modern header with glassmorphism effect */
 .headroom-wrapper {
-  max-height: 100px;
-}
-
-/* header */
-
-.dark-menu {
-  background-color: $darkBackground !important;
-  color: $textColorDark;
-}
-
-.dark-menu li a {
-  color: $textColorDark !important;
-}
-
-.dark-menu li a:hover {
-  background-color: $buttonColor !important;
+  max-height: 80px;
+  z-index: 1000;
 }
 
 .header {
-  background-color: $lightBackground1;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   max-width: 100%;
-  padding: 15px 20px;
+  padding: $space4 $space6;
   margin: 0px auto;
+  transition: all $transitionNormal;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.dark-menu {
+  background: rgba(17, 24, 39, 0.95) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: $textColorDark;
 }
 
 .header ul {
@@ -35,29 +34,66 @@
 }
 
 .grey-color {
-  color: $subTitle;
+  color: $primaryColor;
+  font-weight: 600;
 }
 
 .header li a {
   display: block;
-  padding: 15px 20px;
+  padding: $space3 $space5;
   color: $textColor;
   text-decoration: none;
+  font-weight: 500;
+  border-radius: $radiusMd;
+  transition: all $transitionNormal;
+  position: relative;
+  overflow: hidden;
 }
 
-.header li a:hover,
-.header .menu-btn:hover {
-  background-color: $headerHoverBG;
+.header li a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: $primaryGradient;
+  transition: left $transitionNormal;
+  z-index: -1;
+  border-radius: $radiusMd;
+}
+
+.header li a:hover::before {
+  left: 0;
+}
+
+.header li a:hover {
+  color: white;
+  transform: translateY(-2px);
+}
+
+.dark-menu li a {
+  color: $textColorDark !important;
+}
+
+.dark-menu li a:hover {
+  background: $primaryGradient !important;
+  color: white !important;
 }
 
 .header .logo {
   display: block;
   flex: none;
   float: left;
-  font-size: 1.5em;
+  font-size: 1.75em;
   text-decoration: none;
-  margin-top: 10px;
+  margin-top: $space2;
   line-height: normal;
+  transition: all $transitionNormal;
+}
+
+.header .logo:hover {
+  transform: scale(1.05);
 }
 
 .header .logo-name {
@@ -65,24 +101,26 @@
   font-weight: bold;
   font-variant-ligatures: no-common-ligatures;
   -webkit-font-variant-ligatures: no-common-ligatures;
-  padding: 0 10px;
+  padding: 0 $space2;
+  background: $primaryGradient;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* menu */
-
+/* Menu styles */
 .header .menu {
   clear: both;
   max-height: 0;
-  transition: max-height 0.2s ease-out;
+  transition: max-height 0.3s ease-out;
 }
 
-/* menu icon */
-
+/* Hamburger menu icon */
 .header .menu-icon {
   cursor: pointer;
   display: inline-block;
   float: right;
-  padding: 28px 20px;
+  padding: $space6 $space5;
   position: relative;
   user-select: none;
 }
@@ -92,8 +130,9 @@
   display: block;
   height: 2px;
   position: relative;
-  transition: background 0.2s ease-out;
-  width: 18px;
+  transition: background $transitionNormal;
+  width: 20px;
+  border-radius: 1px;
 }
 
 .header .menu-icon .navicon-dark {
@@ -107,37 +146,31 @@
   display: block;
   height: 100%;
   position: absolute;
-  transition: all 0.2s ease-out;
+  transition: all $transitionNormal;
   width: 100%;
+  border-radius: 1px;
 }
 
 .header .menu-icon .navicon-dark:before,
 .header .menu-icon .navicon-dark:after {
   background: $textColorDark !important;
-  content: "";
-  display: block;
-  height: 100%;
-  position: absolute;
-  transition: all 0.2s ease-out;
-  width: 100%;
 }
 
 .header .menu-icon .navicon:before {
-  top: 5px;
+  top: 6px;
 }
 
 .header .menu-icon .navicon:after {
-  top: -5px;
+  top: -6px;
 }
 
-/* menu btn */
-
+/* Menu button */
 .header .menu-btn {
   display: none;
 }
 
 .header .menu-btn:checked ~ .menu {
-  max-height: 486px;
+  max-height: 500px;
 }
 
 .header .menu-btn:checked ~ .menu-icon .navicon {
@@ -146,37 +179,52 @@
 
 .header .menu-btn:checked ~ .menu-icon .navicon:before {
   transform: rotate(-45deg);
+  top: 0;
 }
 
 .header .menu-btn:checked ~ .menu-icon .navicon:after {
   transform: rotate(45deg);
-}
-
-.header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:before,
-.header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:after {
   top: 0;
 }
 
-/* 48em = 768px */
-
+/* Desktop styles */
 @media (min-width: 48em) {
   .header li {
     float: left;
   }
+  
   .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: $space4 $space8;
   }
+  
   .header .menu {
     max-height: none;
+    display: flex;
+    align-items: center;
+    gap: $space2;
   }
+  
   .header .menu-icon {
     display: none;
   }
 }
+
 @media (max-width: 960px) and (min-width: 768px) {
   .header {
-    font-size: 12px;
+    font-size: 14px;
+    padding: $space3 $space6;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: $space3 $space4;
+  }
+  
+  .header .logo {
+    font-size: 1.5em;
   }
 }

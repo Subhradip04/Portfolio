@@ -1,7 +1,159 @@
 @import "../_globalColor";
 
 .dark-mode {
-  background-color: $darkBackground;
+  background: linear-gradient(135deg, $darkBackground 0%, $darkBackgroundSecondary 100%);
+  color: $textColorDark;
+  transition: all 0.3s ease;
+  min-height: 100vh;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: $lightBackground2;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $primaryGradient;
+  border-radius: $radiusFull;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, $primaryHover 0%, $secondaryHover 100%);
+}
+
+.dark-mode ::-webkit-scrollbar-track {
+  background: $darkBackgroundSecondary;
+}
+
+/* Global animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Utility classes */
+.fade-in {
+  animation: fadeIn 0.8s ease-out;
+}
+
+.slide-in-left {
+  animation: slideInLeft 0.8s ease-out;
+}
+
+.slide-in-right {
+  animation: slideInRight 0.8s ease-out;
+}
+
+/* Focus styles for accessibility */
+*:focus {
+  outline: 2px solid $primaryColor;
+  outline-offset: 2px;
+}
+
+/* Selection styles */
+::selection {
+  background: $primaryColor;
   color: white;
-  transition: "0.1s";
+}
+
+::-moz-selection {
+  background: $primaryColor;
+  color: white;
+}
+
+/* Loading states */
+.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Glassmorphism utility */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark-mode .glass {
+  background: rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Gradient text utility */
+.gradient-text {
+  background: $primaryGradient;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Modern shadows */
+.shadow-modern {
+  box-shadow: $modernShadow;
+}
+
+.shadow-modern-lg {
+  box-shadow: $modernShadowLg;
+}
+
+.shadow-modern-xl {
+  box-shadow: $modernShadowXl;
+}
+
+/* Responsive container */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $space4;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 $space6;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 $space8;
+  }
 }
